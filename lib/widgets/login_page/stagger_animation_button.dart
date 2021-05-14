@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 
-class StaggerAnimationButton extends StatelessWidget {
+class StaggerButton extends StatelessWidget {
   final AnimationController controller;
 
-  StaggerAnimationButton({this.controller}) : 
-    buttonSqueeze = Tween(
-      begin: 320.0,
-      end: 60.0
-    ).animate(
-      CurvedAnimation(
-        parent: controller,
-      )
-    )
-  
+  StaggerButton({this.controller})
+      : buttonSqueeze = Tween(
+          begin: 320.0,
+          end: 60.0,
+        ).animate(
+          CurvedAnimation(
+            parent: controller,
+            curve: Interval(0.0, 0.150),
+          ),
+        );
+
   final Animation<double> buttonSqueeze;
 
-  // ignore: missing_return
-  Widget _builderAnimation(BuildContext context, Widget child) {
+  Widget _buildAnimation(BuildContext context, Widget child) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 50),
+      padding: EdgeInsets.only(
+        bottom: 50,
+      ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          controller.forward();
+        },
         child: Container(
-          width: 320,
+          width: buttonSqueeze.value,
           height: 60,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Color.fromRGBO(247, 64, 106, 1.0),
-            borderRadius: BorderRadius.all(
-              Radius.circular(30.0),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
           ),
           child: Text(
-            "Login",
+            "Entrar",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -49,7 +51,7 @@ class StaggerAnimationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: _builderAnimation,
+      builder: _buildAnimation,
     );
   }
 }

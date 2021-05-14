@@ -64,9 +64,9 @@ class _LoginPageState extends State<LoginPage>
                     SignUpButton(),
                   ],
                 ),
-                StaggerAnimationButton(
-                  controller: _animationController.view,
-                )
+                StaggerButton(
+                  controller: _animationController.view
+                ),
               ],
             )
           ],
