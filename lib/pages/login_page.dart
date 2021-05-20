@@ -1,7 +1,9 @@
+import 'package:animations/pages/home_page.dart';
 import 'package:animations/widgets/login_page/button_signup.dart';
 import 'package:animations/widgets/login_page/form_container.dart';
 import 'package:animations/widgets/login_page/stagger_animation_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,6 +24,14 @@ class _LoginPageState extends State<LoginPage>
         seconds: 2,
       ),
     );
+
+    _animationController.addStatusListener((status) {
+      if(status == AnimationStatus.completed){
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomePage())
+        );
+      }
+    }); //transição entre as telas
   }
 
   @override
@@ -33,6 +43,8 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 1;
+    
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -64,9 +76,7 @@ class _LoginPageState extends State<LoginPage>
                     SignUpButton(),
                   ],
                 ),
-                StaggerButton(
-                  controller: _animationController.view
-                ),
+                StaggerButton(controller: _animationController.view),
               ],
             )
           ],
