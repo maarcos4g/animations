@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
 class FadeContainer extends StatelessWidget {
-  const FadeContainer({Key key}) : super(key: key);
+  final Animation<Color> fadeAnimation;
+
+  FadeContainer({this.fadeAnimation});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Hero(
+      tag: "fade",
+      child: Container(
+        decoration: BoxDecoration(
+          color: fadeAnimation.value,
+        )
+      ),
+    );
   }
 }
